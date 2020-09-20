@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+	<!-- 루트context 얘는 네임스페이스가 beans인데... 똑같은 beans 엘리먼트 안에 빈... 뭐라고? -->
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 마이바이스 사이트에서 매뉴얼을 보고 긁어오시면 됩니다. -->
+
+
+	<bean class="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="myhome" />
+		<property name="password" value="1234" />
+	</bean>
+
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+		<property ref="dataSource" name="dataSource" />
+		<property name="configLocation" value="classpath:util/SqlMapConfig.xml" /> <!-- 이걸 생성햇으면 이 안에 정보를 만들어줘야하는 겁니다. -->
+	</bean>
+
+	<!-- SqlSessionTemplate은 마이바티스 스프링 연동모듈의 핵심이다 SqlSessionTemplate은 SqlSession을 
+		구현하고 코드에서 SqlSession을 대체하는 역할을 합니다 SqlSessionTemplate은 쓰레드에 안전하고 여러 개의 DAO나 
+		매퍼에서 공유할 수 있고 필요한 시점에 세션을 닫고 커밋하거나 롤백하는 것을 포함한 세션의 생명 주기를 관리합니다 -->
+
+	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" index="0" />
+	</bean>
+
+	<!-- 빈의 이름이 정해져 있습니다 -->
+	<!-- 파일 업로드 설정 id 값 꼭 일치 시켜야 합니다 id값을 다르게 사용하면 public String bbs_write_ok(BbsBean 
+		bbsbean) throws Exception{ MultipartFile uploadfile = bbsbean.getUploadfile(); 
+		==> NullPointerException 발생} -->
+
+</beans>
