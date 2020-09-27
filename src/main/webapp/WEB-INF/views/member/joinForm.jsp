@@ -130,11 +130,11 @@ $(function(){
 			required><span id="email_message"></span>
 			
 		<b>우편번호</b> 
-		<input type="text" name="code" id="code" onclick="sample6_execDaumPostcode()" placeholder="이 곳을 클릭하세요" required readonly> 
+		<input type="text" name="code" id="code" onclick="sample6_execDaumPostcode()" placeholder="이 곳을 클릭하세요"  readonly> 
 
 		<b>주소</b> 
-		<input type="text" name="address" id="address" placeholder="주소" onclick="sample6_execDaumPostcode()" required readonly> 
-		<input type="text" name="address_datail" id="address_datail" placeholder="상세주소 1" onclick="sample6_execDaumPostcode()" required readonly> 
+		<input type="text" name="address" id="address" placeholder="주소" onclick="sample6_execDaumPostcode()"  readonly> 
+		<input type="text" name="address_datail" id="address_datail" placeholder="상세주소 1" onclick="sample6_execDaumPostcode()"  readonly> 
 		<input type="text" name="address_datail2" id="address_datail2" placeholder="상세주소 2" > 
 		
 

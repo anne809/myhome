@@ -11,6 +11,21 @@
 	</appender>
 	
 	<!-- Application Loggers -->
+	
+	<!--  추적 가능 -->
+	<logger name="Members">
+		<level value="trace"/>	
+	</logger>
+	
+	<logger name="Boards">
+		<level value="trace"/>	
+	</logger>
+	
+	<logger name="Comments">
+		<level value="trace"/>	
+	</logger>
+	<!--  추적 소스  -->
+	
 	<logger name="kr.co.controller">
 		<level value="info" />
 	</logger>
