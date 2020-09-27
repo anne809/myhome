@@ -10,30 +10,30 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
 $(function(){
-	var checkid=false;
-	var checkemail=false;
+	var checkid = false; 
+	var checkemail = false; 
 	$('form').submit(function(){
 	
 		if(!$.isNumeric($("input[name='age']").val())){
-			alert("나이는 숫자로 입력하세요");
+			alert("나이는 숫자로 입력하세요"); 
 			$("input[name='age']").val('');
-			$("input[name='age']").focus('');
-			return false;			
+			$("input[name='age']").focus(); 
+			return false; 
 		}
 		
 		if(!checkid){
-			alert("사용 가능한 id로 입력하세요.");
-			$("input:eq(0)").val('').focus();
-			return false;			
+			alert("사용가능한 id로 입력하세요."); 
+			$("input:eq(0)").val('').focus(); 
+			return false; 
 		}
 		
 		if(!checkemail){
-			alert("E-mail형식을 확인하세요.");
-			$("input:eq(6)").focus();
-			
+			alert("email형식을 확인하세요");
+			$("input:eq(6)").focus(); 
+		
+		
 			return false;
-			
-		}		
+		}	
 		
 	});//submit
 	
@@ -129,12 +129,12 @@ $(function(){
 			required><span id="email_message"></span>
 			
 		<b>우편번호</b> 
-		<input type="text" name="code" id="code" onclick="sample6_execDaumPostcode()" placeholder="이 곳을 클릭하세요" required> 
+		<input type="text" name="code" id="code" onclick="sample6_execDaumPostcode()" placeholder="이 곳을 클릭하세요" required readonly> 
 
 		<b>주소</b> 
-		<input type="text" name="address" id="address" placeholder="주소" onclick="sample6_execDaumPostcode()" required> 
+		<input type="text" name="address" id="address" placeholder="주소" onclick="sample6_execDaumPostcode()" required readonly> 
 		<input type="text" name="address_datail" id="address_datail" placeholder="상세주소 1" onclick="sample6_execDaumPostcode()" required readonly> 
-		<input type="text" name="address_datail2" id="address_datail2" placeholder="상세주소 2" onclick="sample6_execDaumPostcode()" > 
+		<input type="text" name="address_datail2" id="address_datail2" placeholder="상세주소 2" > 
 		
 
 		<div class="clearfix">

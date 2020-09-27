@@ -1,15 +1,21 @@
 package kr.co.controller.controller;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.co.controller.domain.Member;
+import kr.co.controller.service.MemberService;
 
 /*
    @Component를 이용해서 스프링 컨테이너가 해당 클래스 객체를 생성하도록 설정할 수 있지만
@@ -32,6 +38,13 @@ import kr.co.controller.domain.Member;
 
 @Controller //stereotype.Controller를 import해주세요.. 
 public class MemberController {
+	
+	@Autowired
+	private MemberService memberservice; //MemberService로 이동해서 주입
+	
+	//비밀번호 암호화
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	
 	/*
@@ -70,10 +83,45 @@ public class MemberController {
 	@RequestMapping(value="/joinProcess.net",method=RequestMethod.POST)
 	public void joinProcess(Member member, HttpServletResponse response)throws Exception{
 		
+		//Member member 정보를 받아옵니다. import com.naver.myhome4.domain.Member;
+		//command 객체로 간편하게..
+		//우린 더이상 new MemberDAO를 쓰지 않습니다.
+		
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out=response.getWriter();
+		
+		//비밀번호 암호화 추가
+		
+		String encPassword=passwordEncoder.encode(member.getPassword());
+		System.out.println(encPassword);
+		member.setPassword(encPassword); //이걸로 변경을 할거에요
+		
+		int result=memberservice.insert(member); //그리고 여기서 확인 할거에요
+		out.println("<script>");
+		
+		//삽입이 된 경우
+		if(result ==1) {
+			out.println("alert('회원가입을 축하합니다.');");
+			out.println("location.href='login.net';");		
+		} else if(result == -1 ) {
+			out.println("alert('아이디가 중복되었습니다. 다시 입력하세요.);");
+			//out.println("location.href='join.net';");  새로고침되어 이전에 입력한 데이터가 나타나지 않습니다.
+			out.println("history.back()"); // 비밀번호를 제외한 다른 데이터는 유지되어 있습니다.
+		}
+		out.println("<script>");
+		out.close();
 		
 	}
+	
+	// 회원가입폼에서 아이디 검사 (joinForm.jsp의 상단 제이쿼리 idcheck.net)
+	@RequestMapping(value = "/idcheck.net", method = RequestMethod.GET)
+	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
+		int result = memberservice.isId(id); // -> MemberServiceImpl 로 이동
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(result);
 
-
+	}
 
 
 }

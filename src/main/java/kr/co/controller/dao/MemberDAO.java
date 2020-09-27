@@ -1,5 +1,12 @@
 package kr.co.controller.dao;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import kr.co.controller.domain.Member;
+
+@Repository
 public class MemberDAO {
 	
 	/*
@@ -16,5 +23,18 @@ public class MemberDAO {
 	
 	
 	*/
+	
+	//MemberServiceImpl 따라서 작성하러 이동했습니다~
+	
+	@Autowired
+	private SqlSessionTemplate sqlsession;
+	
+	public int insert(Member m) {
+		return sqlsession.insert("Members.insert",m);
+	}
+
+	public Member isId(String id) { 
+		return sqlsession.selectOne("Members.idcheck", id); // 이부분이 member.xml에서 mapper Members
+	}
 
 }
