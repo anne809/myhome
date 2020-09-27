@@ -2,7 +2,7 @@ DROP table member;
 
 create table member(
 id			 	varchar2(15),
-password 	 	varchar2(10),
+password 	 	varchar2(100),
 name 		 	varchar2(15),
 age				number,
 gender 		 	varchar2(5),

@@ -27,14 +27,18 @@ public class MemberDAO {
 	//MemberServiceImpl 따라서 작성하러 이동했습니다~
 	
 	@Autowired
-	private SqlSessionTemplate sqlsession;
+	private SqlSessionTemplate sqlSession;
 	
 	public int insert(Member m) {
-		return sqlsession.insert("Members.insert",m);
+		return sqlSession.insert("Members.insert",m);
 	}
 
 	public Member isId(String id) { 
-		return sqlsession.selectOne("Members.idcheck", id); // 이부분이 member.xml에서 mapper Members
+		return sqlSession.selectOne("Members.idcheck", id); // 이부분이 member.xml에서 mapper Members
+	}
+	
+	public Member member_info(String id) {
+		return sqlSession.selectOne("Members.idcheck",id);
 	}
 
 }

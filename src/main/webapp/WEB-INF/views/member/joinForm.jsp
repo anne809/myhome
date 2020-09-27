@@ -38,6 +38,7 @@ $(function(){
 	});//submit
 	
 	$("input:eq(6)").on('keyup',function(){
+		
 		$("#email_message").empty(); //처음에 pattern에 적합하지 않은 경우 메지시 출력후 적합한
 		
 		//[A-Za-z0-9_]와 동일한 것이 \w
@@ -52,7 +53,7 @@ $(function(){
 			("이메일 형식에 맞지 않습니다.");
 			checkemail=false;			
 		}else{
-			$("#email_message").css('color','green').html()
+			$("#email_message").css('color','green').html
 			("이메일 형식에 맞습니다.");
 			checkemail=true;
 		}
@@ -78,7 +79,7 @@ $(function(){
 			url:"idcheck.net",
 			data: {"id" : id},
 			success:function(resp){
-				if(rest==-1){ //db에 해당하는 id가 없는 경우
+				if(resp == -1){ //db에 해당하는 id가 없는 경우
 					$("#message").css('color','green').html(
 						"사용 가능한 아이디입니다.");
 				checkid=true;
