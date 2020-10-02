@@ -8,7 +8,7 @@ import kr.co.controller.dao.MemberDAO;
 import kr.co.controller.domain.Member;
 
 //사용하려면 애노테이션 꼭 빼놓지마세요! 그리고 꼭 인터페이스 상속 받아주세요~
-//MemberController -> Member생성 -> Memberservice-> MemberDAO -> MemberSeriveImpl
+//MemberController -> Member생성 -> Memberservice(인터페이스)-> MemberDAO -> MemberSeriveImpl
 @Service
 public class MemberServiceImpl implements MemberService{
 	
@@ -17,7 +17,9 @@ public class MemberServiceImpl implements MemberService{
 
 	
 	//MemberController에서 넘어옴 -> MemberDAO에서 insert 만들고...
-	@Override
+	@Override //MemberService.java 인터페이스에서 상속
+			  //부모 클래스의 메소드를 자식 클래스에서 재정의해서 사용하는것, 
+			  //부모 클래스를 상속받아 확장하거나 새롭게 구현...
 	public int insert(Member m) {
 		return dao.insert(m);
 	}
